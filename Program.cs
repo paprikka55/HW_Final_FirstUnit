@@ -1,21 +1,23 @@
-﻿void FillRandomArray (string[] array)
-{
-Random rnd = new Random();
-int elementLength;
-char simbol;
-string tempString;
+﻿using System.Text;
 
-for (int i = 0; i < array.Length; i++)
+void FillRandomArray(string[] array)
 {
-  elementLength = rnd.Next(1, 10);
-  tempString = "";
-  for (int j = 0; j < elementLength; j++)
+  Random rnd = new Random();
+  int elementLength;
+  char simbol;
+  string tempString;
+
+  for (int i = 0; i < array.Length; i++)
   {
-    simbol = Convert.ToChar(rnd.Next(33, 127));
-    tempString += simbol;
+    elementLength = rnd.Next(1, 10);
+    tempString = "";
+    for (int j = 0; j < elementLength; j++)
+    {
+      simbol = Convert.ToChar(rnd.Next(48, 127));
+      tempString += simbol;
+    }
+    array[i] = tempString;
   }
-  array[i] = tempString;
-}
 }
 
 void PrintArray(string[] array)
@@ -32,7 +34,7 @@ string[] CreateRandomArray()
   int length = new int();
   while (true)
   {
-    System.Console.Write("Для создания рандомного массива введите количество элементов: ");
+    System.Console.Write("Для создания случайного массива введите количество элементов: ");
     bool success = int.TryParse(Console.ReadLine(), out length);
     if (success == true)
     {
@@ -74,11 +76,22 @@ string[] GetShortStrings(string[] array)
   return shortArray;
 }
 
+string[] FillArrayManually()
+{
+  System.Console.Write("Введите массив, разделяя элементы пробелами: ");
+  string inputString = Console.ReadLine();
+  string[] array = inputString.Split(" ");
+  return array;
+}
+
+Console.InputEncoding = Encoding.Unicode;
+Console.OutputEncoding = Encoding.Unicode;
 
 System.Console.WriteLine(@"Выберите способ создания массива:
 1. Массив заполненный случайными символами
 2. Заполнить массив вручную
 Для выхода нажмите Q");
+
 char inputChar = Console.ReadKey().KeyChar;
 if (inputChar == '1')
 {
@@ -86,15 +99,19 @@ if (inputChar == '1')
   string[] array = CreateRandomArray();
   System.Console.WriteLine("Созданный массив: ");
   PrintArray(array);
-  System.Console.WriteLine("Массив со строками меньше ии равно 3 символам: ");
+  System.Console.WriteLine("Массив со строками меньше или равно 3 символам: ");
   string[] shortArray = GetShortStrings(array);
   PrintArray(shortArray);
 }
-else if(inputChar == '2')
+else if (inputChar == '2')
 {
-  System.Console.WriteLine("Вручную");  
+  System.Console.WriteLine();
+  string[] array = FillArrayManually();
+  System.Console.WriteLine("Массив со строками меньше или равно 3 символам: ");
+  string[] shortArray = GetShortStrings(array);
+  PrintArray(shortArray);
 }
-else if(inputChar == 'q' || inputChar == 'Q')
+else if (inputChar == 'q' || inputChar == 'Q')
 {
   System.Environment.Exit(0);
 }
