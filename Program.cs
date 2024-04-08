@@ -83,7 +83,7 @@ string[] FillArrayManually()
   string[] array = inputString.Split(" ");
   return array;
 }
-
+//-----------------------------------------------------------------------
 Console.InputEncoding = Encoding.Unicode;
 Console.OutputEncoding = Encoding.Unicode;
 
